@@ -18,8 +18,8 @@ export class UsersRepository extends Repository<User> {
     const { username, password } = authCredentialsDto;
 
     const hashedPassword = await hash(password, 10);
-    const user = this.create({ username, password: hashedPassword });
     try {
+      const user = this.create({ username, password: hashedPassword });
       await this.save(user);
     } catch (error) {
       if (error.code === 'ER_DUP_ENTRY') {
